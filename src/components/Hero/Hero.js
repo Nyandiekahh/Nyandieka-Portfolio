@@ -1,4 +1,3 @@
-// src/components/Hero/Hero.js
 import React, { useEffect, useRef } from 'react';
 import './Hero.css';
 
@@ -25,11 +24,10 @@ const Hero = () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5; // Smaller particles
-        this.speedX = Math.random() * 1 - 0.5; // Slower movement
-        this.speedY = Math.random() * 1 - 0.5; // Slower movement
-        this.opacity = Math.random() * 0.5 + 0.1; // Random opacity for depth
-        // White particles with varying opacity
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.opacity = Math.random() * 0.5 + 0.1;
         this.color = `rgba(255, 255, 255, ${this.opacity})`;
       }
 
@@ -47,11 +45,9 @@ const Hero = () => {
           const angle = Math.atan2(dy, dx);
           this.x += Math.cos(angle) * 1;
           this.y += Math.sin(angle) * 1;
-          // Increase opacity when near cursor
           this.opacity = Math.min(0.8, this.opacity + 0.1);
           this.color = `rgba(255, 255, 255, ${this.opacity})`;
         } else {
-          // Return to original opacity
           this.opacity = Math.max(0.1, this.opacity - 0.02);
           this.color = `rgba(255, 255, 255, ${this.opacity})`;
         }
@@ -65,16 +61,14 @@ const Hero = () => {
       }
     }
 
-    // Initialize particles - increased number for better effect
     const initParticles = () => {
       for (let i = 0; i < 150; i++) {
         particlesArray.current.push(new Particle());
       }
     };
 
-    // Animation loop
     const animate = () => {
-      ctx.fillStyle = 'rgba(10, 10, 15, 0.1)'; // Very dark background with slight transparency
+      ctx.fillStyle = 'rgba(10, 10, 15, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particlesArray.current.forEach(particle => {
@@ -102,6 +96,17 @@ const Hero = () => {
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
+
+  const handleViewProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleOpenCV = () => {
+    window.open('https://nyandiekahh.github.io/Nyandieka%20Updated%20CV.pdf', '_blank');
+  };
 
   return (
     <section className="hero">
@@ -131,12 +136,12 @@ const Hero = () => {
         </p>
 
         <div className="cta-container">
-          <button className="cta-button primary">
+          <button className="cta-button primary" onClick={handleViewProjects}>
             <span className="button-text">View Projects</span>
             <span className="button-icon">→</span>
           </button>
-          <button className="cta-button secondary">
-            <span className="button-text">Download CV</span>
+          <button className="cta-button secondary" onClick={handleOpenCV}>
+            <span className="button-text">View CV</span>
             <span className="button-icon">↓</span>
           </button>
         </div>
