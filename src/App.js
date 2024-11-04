@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import Preloader from './components/Preloader/Preloader';
+import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
 import Skills from './components/Skills/Skills';
@@ -24,11 +25,14 @@ function App() {
         <Preloader />
       ) : (
         <>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Contact />
+          <Navbar />  {/* Added Navbar component */}
+          <main> {/* Wrapped content in main tag for better semantics */}
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
         </>
       )}
     </div>
