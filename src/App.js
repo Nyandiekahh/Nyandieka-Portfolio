@@ -16,7 +16,7 @@ function App() {
     // Simulate loading time
     setTimeout(() => {
       setLoading(false);
-    }, 3000); // 3 seconds loading time - adjust as needed
+    }, 5000); // 5 seconds loading time - adjust as needed
   }, []);
 
   return (

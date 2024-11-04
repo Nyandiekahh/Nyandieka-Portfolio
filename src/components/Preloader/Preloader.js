@@ -1,4 +1,3 @@
-// src/components/Preloader/Preloader.js
 import React, { useEffect, useRef } from 'react';
 import './Preloader.css';
 
@@ -14,28 +13,69 @@ const Preloader = () => {
 
     let progressValue = 0;
     const totalProgress = 100;
-    const speed = 50; // Lower value = faster progress
+    const duration = 5000; // Match this with App.js setTimeout (3000ms)
+    const minStepTime = 20; // Minimum time between updates
+    const maxStepTime = 100; // Maximum time between updates
 
     const updateProgress = () => {
+      // Calculate time per step to ensure we complete just before the duration
+      const remainingTime = duration - (progressValue * duration / totalProgress);
+      const remainingSteps = totalProgress - progressValue;
+      let stepTime = remainingTime / remainingSteps;
+
+      // Keep step time within bounds
+      stepTime = Math.max(minStepTime, Math.min(stepTime, maxStepTime));
+
+      // Add dramatic pauses
+      const dramaticPauses = {
+        30: 200,
+        60: 200,
+        85: 200
+      };
+
       if (progressValue < totalProgress) {
         progressValue++;
         if (progress) progress.style.width = `${progressValue}%`;
         if (text) text.textContent = `${progressValue}%`;
-        
-        // Slow down near certain percentages for dramatic effect
-        const timeout = progressValue === 30 || progressValue === 60 || progressValue === 85 
-          ? 200 
-          : speed;
-        
-        setTimeout(updateProgress, timeout);
-      } else {
-        // Add completion class for outro animation
-        if (loader) loader.classList.add('complete');
+
+        // Calculate next timeout
+        const nextTimeout = dramaticPauses[progressValue] || stepTime;
+
+        // If we're approaching the end, ensure we hit 100%
+        if (progressValue >= 95) {
+          const timeLeft = duration - (Date.now() - startTime);
+          const stepsLeft = totalProgress - progressValue;
+          if (stepsLeft > 0) {
+            setTimeout(updateProgress, timeLeft / stepsLeft);
+          }
+        } else {
+          setTimeout(updateProgress, nextTimeout);
+        }
+      }
+
+      // Add completion class when done
+      if (progressValue === totalProgress && loader) {
+        loader.classList.add('complete');
       }
     };
 
-    // Start progress after initial delay
-    setTimeout(updateProgress, 500);
+    // Start time reference
+    const startTime = Date.now();
+
+    // Initial delay before starting
+    setTimeout(updateProgress, 100);
+
+    // Ensure we reach 100% by the end of duration
+    const finalTimeout = setTimeout(() => {
+      if (progressValue < totalProgress) {
+        progressValue = totalProgress;
+        if (progress) progress.style.width = '100%';
+        if (text) text.textContent = '100%';
+        if (loader) loader.classList.add('complete');
+      }
+    }, duration - 100); // Slightly before the App.js timeout
+
+    return () => clearTimeout(finalTimeout);
   }, []);
 
   return (
