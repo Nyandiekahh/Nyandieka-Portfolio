@@ -1,4 +1,3 @@
-// src/components/Projects/Projects.js
 import React, { useState, useEffect } from 'react';
 import './Projects.css';
 
@@ -12,7 +11,7 @@ const Projects = () => {
       id: 1,
       title: "SACCO Management System",
       description: "A comprehensive system for managing savings and credit cooperatives with features for member management, loan processing, and financial tracking.",
-      image: "/api/placeholder/600/400",
+      image: "https://raw.githubusercontent.com/Nyandiekahh/Nyandieka-Portfolio/main/public/sacco.jpeg",
       technologies: ["React", "Node.js", "MongoDB", "Express"],
       category: "full-stack",
       liveLink: "#",
@@ -29,7 +28,7 @@ const Projects = () => {
       id: 2,
       title: "Machine Learning Portfolio",
       description: "Collection of data science and machine learning projects showcasing predictive analysis and data visualization.",
-      image: "/api/placeholder/600/400",
+      image: "https://raw.githubusercontent.com/Nyandiekahh/Nyandieka-Portfolio/main/public/machine%20learning.png",
       technologies: ["Python", "TensorFlow", "Scikit-learn", "Pandas"],
       category: "data-science",
       liveLink: "#",
@@ -45,7 +44,7 @@ const Projects = () => {
       id: 3,
       title: "IoT Home Automation",
       description: "Smart home automation system using IoT devices and sensors for remote monitoring and control.",
-      image: "/api/placeholder/600/400",
+      image: "https://raw.githubusercontent.com/Nyandiekahh/Nyandieka-Portfolio/main/public/home%20automation.webp",
       technologies: ["Arduino", "Raspberry Pi", "MQTT", "React"],
       category: "iot",
       liveLink: "#",
@@ -78,6 +77,11 @@ const Projects = () => {
       setFilteredProjects(filtered);
     }
   };
+
+  // Initialize filteredProjects with all projects
+  useEffect(() => {
+    setFilteredProjects(projects);
+  }, []);
 
   return (
     <section id="projects" className="projects">
