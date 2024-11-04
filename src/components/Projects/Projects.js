@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Projects.css';
+import saccoImage from '../../images/sacco.jpeg';
+import mlImage from '../../images/machine learning.png';
+import iotImage from '../../images/home automation.webp';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -11,7 +14,7 @@ const Projects = () => {
       id: 1,
       title: "SACCO Management System",
       description: "A comprehensive system for managing savings and credit cooperatives with features for member management, loan processing, and financial tracking.",
-      image: "https://raw.githubusercontent.com/Nyandiekahh/Nyandieka-Portfolio/main/public/sacco.jpeg",
+      image: saccoImage,
       technologies: ["React", "Node.js", "MongoDB", "Express"],
       category: "full-stack",
       liveLink: "#",
@@ -28,7 +31,7 @@ const Projects = () => {
       id: 2,
       title: "Machine Learning Portfolio",
       description: "Collection of data science and machine learning projects showcasing predictive analysis and data visualization.",
-      image: "https://raw.githubusercontent.com/Nyandiekahh/Nyandieka-Portfolio/main/public/machine%20learning.png",
+      image: mlImage,
       technologies: ["Python", "TensorFlow", "Scikit-learn", "Pandas"],
       category: "data-science",
       liveLink: "#",
@@ -44,7 +47,7 @@ const Projects = () => {
       id: 3,
       title: "IoT Home Automation",
       description: "Smart home automation system using IoT devices and sensors for remote monitoring and control.",
-      image: "https://raw.githubusercontent.com/Nyandiekahh/Nyandieka-Portfolio/main/public/home%20automation.webp",
+      image: iotImage,
       technologies: ["Arduino", "Raspberry Pi", "MQTT", "React"],
       category: "iot",
       liveLink: "#",
@@ -57,7 +60,7 @@ const Projects = () => {
       ]
     }
   ];
-
+  
   const categories = [
     { id: 'all', label: 'All Projects' },
     { id: 'full-stack', label: 'Full Stack' },
