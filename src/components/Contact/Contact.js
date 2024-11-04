@@ -23,9 +23,21 @@ const Contact = () => {
     phone: '+254 719 408 098',
     location: 'Nairobi, Kenya',
     socials: [
-      { name: 'GitHub', url: '#', icon: '⌨️' },
-      { name: 'LinkedIn', url: '#', icon: '💼' },
-      { name: 'Twitter', url: '#', icon: '🐦' }
+      { 
+        name: 'GitHub', 
+        url: 'https://github.com/Nyandiekahh', 
+        icon: '⌨️' 
+      },
+      { 
+        name: 'LinkedIn', 
+        url: 'https://www.linkedin.com/in/einstein-mokua-b9886b220/', 
+        icon: '💼' 
+      },
+      { 
+        name: 'WhatsApp', 
+        url: 'https://wa.me/254719408098', // WhatsApp click-to-chat link with your number
+        icon: '💬' 
+      }
     ]
   };
 
