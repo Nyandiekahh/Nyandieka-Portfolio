@@ -1,5 +1,5 @@
-// src/components/Contact/Contact.js
 import React, { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 const Contact = () => {
@@ -35,37 +35,70 @@ const Contact = () => {
       },
       { 
         name: 'WhatsApp', 
-        url: 'https://wa.me/254719408098', // WhatsApp click-to-chat link with your number
+        url: 'https://wa.me/254719408098',
         icon: '💬' 
       }
     ]
   };
 
+  useEffect(() => {
+    // Initialize EmailJS with your public key
+    emailjs.init("fc2frA56DkmeYcH8v");
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus({ ...formStatus, submitting: true });
-
-    // Simulate form submission
+  
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const now = new Date();
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        sent_date: now.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }),
+        timestamp: now.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        })
+      };
+  
+      const result = await emailjs.send(
+        "service_x4n3otv",  // Your service ID
+        "template_x08vbrg", // Your template ID
+        templateParams,
+        "fc2frA56DkmeYcH8v" // Your public key
+      );
+  
+      console.log("Success:", result.text);
       setFormStatus({
         submitted: true,
         submitting: false,
         error: null
       });
+      
       setFormData({ name: '', email: '', subject: '', message: '' });
       
       setTimeout(() => {
         setFormStatus(prev => ({ ...prev, submitted: false }));
       }, 5000);
     } catch (error) {
+      console.error("Email send error:", error);
       setFormStatus({
         submitted: false,
         submitting: false,
-        error: 'Something went wrong. Please try again.'
+        error: 'Failed to send message. Please try again.'
       });
     }
   };
+
 
   const handleChange = (e) => {
     setFormData({
