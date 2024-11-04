@@ -25,28 +25,35 @@ const Hero = () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 5 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-        this.color = `hsl(${Math.random() * 60 + 170}, 100%, 50%)`;
+        this.size = Math.random() * 2 + 0.5; // Smaller particles
+        this.speedX = Math.random() * 1 - 0.5; // Slower movement
+        this.speedY = Math.random() * 1 - 0.5; // Slower movement
+        this.opacity = Math.random() * 0.5 + 0.1; // Random opacity for depth
+        // White particles with varying opacity
+        this.color = `rgba(255, 255, 255, ${this.opacity})`;
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // Boundary check
         if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
         if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
 
-        // Mouse interaction
         const dx = this.x - cursorRef.current.x;
         const dy = this.y - cursorRef.current.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < 100) {
           const angle = Math.atan2(dy, dx);
-          this.x += Math.cos(angle) * 2;
-          this.y += Math.sin(angle) * 2;
+          this.x += Math.cos(angle) * 1;
+          this.y += Math.sin(angle) * 1;
+          // Increase opacity when near cursor
+          this.opacity = Math.min(0.8, this.opacity + 0.1);
+          this.color = `rgba(255, 255, 255, ${this.opacity})`;
+        } else {
+          // Return to original opacity
+          this.opacity = Math.max(0.1, this.opacity - 0.02);
+          this.color = `rgba(255, 255, 255, ${this.opacity})`;
         }
       }
 
@@ -58,16 +65,16 @@ const Hero = () => {
       }
     }
 
-    // Initialize particles
+    // Initialize particles - increased number for better effect
     const initParticles = () => {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 150; i++) {
         particlesArray.current.push(new Particle());
       }
     };
 
     // Animation loop
     const animate = () => {
-      ctx.fillStyle = 'rgba(10, 25, 47, 0.1)';
+      ctx.fillStyle = 'rgba(10, 10, 15, 0.1)'; // Very dark background with slight transparency
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       particlesArray.current.forEach(particle => {
@@ -78,7 +85,6 @@ const Hero = () => {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Mouse move handler
     const handleMouseMove = (e) => {
       cursorRef.current = {
         x: e.clientX,
@@ -86,7 +92,6 @@ const Hero = () => {
       };
     };
 
-    // Initialize and start animation
     initParticles();
     animate();
     window.addEventListener('mousemove', handleMouseMove);
