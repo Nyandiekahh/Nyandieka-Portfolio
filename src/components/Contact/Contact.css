@@ -1,0 +1,44 @@
+/* src/components/Contact/Contact.css */
+.contact {
+    padding: 80px 20px;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+    color: white;
+  }
+  
+  .contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact input,
+  .contact textarea {
+    padding: 15px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background: #2a2a2a;
+    color: white;
+  }
+  
+  .contact button {
+    padding: 15px 30px;
+    background: #64ffda;
+    border: none;
+    border-radius: 5px;
+    color: #1a1a1a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .contact button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+  }
+  
