@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './Hero.css';
+import CV from '../../assets/Einstein Mokua - Fullstack Engineer.pdf';
 
 const Hero = () => {
   const particlesRef = useRef(null);
@@ -105,7 +106,7 @@ const Hero = () => {
   };
 
   const handleOpenCV = () => {
-    window.open('https://nyandiekahh.github.io/Nyandieka%20Updated%20CV.pdf', '_blank');
+    window.open(CV, '_blank');
   };
 
   return (
